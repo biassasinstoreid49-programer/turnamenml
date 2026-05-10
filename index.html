@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ML Tournament | Turnamen Mobile Legends</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0c10;
+      color: #eef2ff;
+      scroll-behavior: smooth;
+    }
+
+    /* gradient & glows */
+    .bg-gradient-dark {
+      background: radial-gradient(circle at 20% 30%, #11161f, #06080c);
+    }
+
+    .glow-text {
+      text-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #7c3aed, #3b82f6);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59,130,246,0.5);
+      background: linear-gradient(95deg, #8b5cf6, #2563eb);
+    }
+
+    .card {
+      background: rgba(18, 24, 32, 0.75);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 1.5rem;
+      transition: all 0.25s;
+    }
+
+    .card:hover {
+      border-color: rgba(59,130,246,0.6);
+      box-shadow: 0 12px 30px -8px rgba(0,0,0,0.5);
+      transform: translateY(-4px);
+    }
+
+    .glass-nav {
+      background: rgba(6, 10, 18, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(59,130,246,0.3);
+    }
+
+    .table-bracket td, .table-bracket th {
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .prize-card {
+      background: linear-gradient(145deg, #131b26, #0b1018);
+      border-radius: 2rem;
+    }
+
+    .input-modern {
+      background: #11161f;
+      border: 1px solid #2d3a4b;
+      border-radius: 1rem;
+      padding: 12px 18px;
+      color: white;
+      transition: 0.2s;
+    }
+
+    .input-modern:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+
+    footer a {
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #60a5fa;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f1219;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d3a4b;
+      border-radius: 8px;
+    }
+
+    .hero-pattern {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.15"><path fill="none" stroke="%233b82f6" stroke-width="1.5" d="M200 150 L600 150 M200 200 L600 200 M200 250 L600 250 M200 300 L600 300 M200 350 L600 350 M200 400 L600 400 M200 450 L600 450 M200 500 L600 500 M200 550 L600 550 M200 600 L600 600 M250 100 L250 700 M300 100 L300 700 M350 100 L350 700 M400 100 L400 700 M450 100 L450 700 M500 100 L500 700 M550 100 L550 700"/><circle cx="400" cy="400" r="120" stroke="%238b5cf6" stroke-width="1.2" fill="none"/></svg>');
+      background-repeat: repeat;
+      background-size: 50px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark hero-pattern">
+
+  <!-- Navigation -->
+  <nav class="glass-nav fixed top-0 w-full z-50 py-4 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-gamepad text-indigo-400 text-2xl"></i>
+        <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">ML<span class="text-blue-400">Tourney</span></span>
+      </div>
+      <div class="flex gap-6 text-sm font-medium">
+        <a href="#home" class="hover:text-blue-400 transition">Beranda</a>
+        <a href="#schedule" class="hover:text-blue-400 transition">Jadwal</a>
+        <a href="#bracket" class="hover:text-blue-400 transition">Bracket</a>
+        <a href="#register" class="hover:text-blue-400 transition">Daftar</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Kontak</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 md:pt-28">
+    <!-- Hero section -->
+    <section id="home" class="px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 py-12">
+      <div class="flex-1 text-center lg:text-left">
+        <div class="inline-block px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 text-sm font-semibold mb-4 border border-blue-500/30">
+          <i class="fas fa-trophy mr-1"></i> Season 6 - Grand Clash
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+          Turnamen MLBB <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Profesional</span>
+        </h1>
+        <p class="text-gray-300 text-lg mt-6 max-w-xl mx-auto lg:mx-0">
+          Rebutkan hadiah total 12.500.000 IDR + skin legend. Daftarkan timmu sekarang dan buktikan siapa yang terkuat di Land of Dawn.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
+          <a href="#register" class="btn-primary px-7 py-3 rounded-xl font-bold text-white flex items-center gap-2"><i class="fas fa-pen-alt"></i> Daftar Tim</a>
+          <a href="#bracket" class="border border-blue-500/60 px-7 py-3 rounded-xl font-semibold hover:bg-blue-500/10 transition"><i class="fas fa-chart-simple"></i> Lihat Bracket</a>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center">
+        <div class="relative w-72 h-72 md:w-96 md:h-96">
+          <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-600/20 blur-2xl"></div>
+          <img src="https://cdn-icons-png.flaticon.com/512/3521/3521138.png" alt="MLBB" class="relative w-full h-full object-contain drop-shadow-2xl" onerror="this.src='https://placehold.co/400x400/1e293b/3b82f6?text=ML+Esports'">
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Prize & Quick Info -->
+    <section class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6 text-center">
+          <i class="fas fa-trophy text-4xl text-yellow-400 mb-3"></i>
+          <h3 class="text-2xl font-bold">12,5 Juta</h3>
+          <p class="text-gray-400">Total Hadiah + Skin Legend</p>
+        </div>
+        <div class="card p-6 text-center">
+          <i class="fas fa-users text-4xl text-blue-400 mb-3"></i>
+          <h3 class="text-2xl font-bold">32 Tim</h3>
+          <p class="text-gray-400">Slot terbatas, sistem gugur double elim</p>
+        </div>
+        <div class="card p-6 text-center">
+          <i class="fas fa-calendar-alt text-4xl text-emerald-400 mb-3"></i>
+          <h3 class="text-2xl font-bold">24-26 Mei 2026</h3>
+          <p class="text-gray-400">Online Qualifier & Grand Final Live</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jadwal / Schedule -->
+    <section id="schedule" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold">Jadwal <span class="text-blue-400">Turnamen</span></h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-3 rounded-full"></div>
+      </div>
+      <div class="card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-blue-900/30 border-b border-blue-500/30">
+              <tr><th class="px-5 py-4">Tanggal</th><th class="px-5 py-4">Acara</th><th class="px-5 py-4">Waktu (WIB)</th><th class="px-5 py-4">Status</th></tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-800"><td class="px-5 py-4">24 Mei 2026</td><td class="px-5 py-4 font-medium">Kualifikasi babak 1 (Bo1)</td><td class="px-5 py-4">13:00 - 17:00</td><td class="px-5 py-4 text-emerald-400"><i class="fas fa-check-circle"></i> Open</td></tr>
+              <tr class="border-b border-gray-800"><td class="px-5 py-4">25 Mei 2026</td><td class="px-5 py-4 font-medium">16 Besar & Perempat final (Bo3)</td><td class="px-5 py-4">13:00 - 19:00</td><td class="px-5 py-4 text-yellow-400">Segera</td></tr>
+              <tr><td class="px-5 py-4">26 Mei 2026</td><td class="px-5 py-4 font-medium">Semifinal & Grand Final (Bo5)</td><td class="px-5 py-4">14:00 - 21:00</td><td class="px-5 py-4 text-blue-300">Unggulan</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bracket preview sederhana -->
+    <section id="bracket" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold">Bracket <span class="text-blue-400">Eliminasi</span></h2>
+        <p class="text-gray-400 mt-2">Sistem upper/lower bracket, update langsung</p>
+      </div>
+      <div class="card p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center text-sm md:text-base">
+          <div class="bg-black/30 p-4 rounded-2xl border border-gray-700"><span class="font-bold text-blue-300">Round 1</span><br>Team Alpha<br>Team Omega<br><span class="text-green-400">Winner: TBD</span></div>
+          <div class="bg-black/30 p-4 rounded-2xl border border-gray-700"><span class="font-bold text-blue-300">Quarter</span><br>Team Beast<br>Team Falcon<br><span class="text-green-400">Winner: TBD</span></div>
+          <div class="bg-black/30 p-4 rounded-2xl border border-gray-700"><span class="font-bold text-blue-300">Semifinal</span><br>Winner Q1<br>Winner Q2<br><span class="text-yellow-400">*Live</span></div>
+          <div class="bg-gradient-to-br from-blue-950/60 to-purple-950/60 p-4 rounded-2xl border border-blue-500"><span class="font-bold text-white">GRAND FINAL</span><br>Upper Finalis<br>Lower Finalis<br><i class="fas fa-crown text-yellow-400"></i> Juara ML</div>
+        </div>
+        <div class="text-center text-gray-400 text-sm mt-6">*Bracket akan diisi setelah pendaftaran ditutup (21 Mei 2026)</div>
+      </div>
+    </section>
+
+    <!-- Form Pendaftaran (modern) -->
+    <section id="register" class="max-w-5xl mx-auto px-6 md:px-12 py-12">
+      <div class="card p-8 md:p-10">
+        <div class="text-center mb-8">
+          <i class="fas fa-clipboard-list text-4xl text-blue-400"></i>
+          <h2 class="text-3xl font-bold mt-2">Daftarkan Tim MLBB Anda</h2>
+          <p class="text-gray-400">Isi formulir berikut, admin akan menghubungi via WhatsApp</p>
+        </div>
+        <form id="tournamentForm" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <input type="text" placeholder="Nama Tim *" class="input-modern" id="teamName" required>
+          <input type="text" placeholder="Nama Kapten *" class="input-modern" id="captain" required>
+          <input type="email" placeholder="Email Tim" class="input-modern" id="email">
+          <input type="tel" placeholder="No. WhatsApp (aktif) *" class="input-modern" id="phone" required>
+          <div class="md:col-span-2">
+            <textarea rows="3" placeholder="Sebutkan 5-7 member (IGN + ID) / info tambahan" class="input-modern w-full" id="members"></textarea>
+          </div>
+          <div class="md:col-span-2 flex flex-col items-center gap-3">
+            <button type="submit" class="btn-primary px-8 py-3 rounded-xl font-bold text-lg w-full md:w-auto flex items-center justify-center gap-2"><i class="fas fa-paper-plane"></i> Kirim Pendaftaran</button>
+            <p class="text-xs text-gray-500">*Biaya pendaftaran 50k/tim, transfer ke rek resmi setelah verifikasi</p>
+          </div>
+        </form>
+        <div id="formFeedback" class="mt-6 text-center text-sm font-medium hidden"></div>
+      </div>
+    </section>
+
+    <!-- Footer & Kontak -->
+    <footer id="contact" class="border-t border-gray-800 mt-16 py-12 px-6 md:px-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2 text-xl font-bold"><i class="fas fa-gamepad text-indigo-400"></i> MLTourney</div>
+          <p class="text-gray-400 mt-3 text-sm">Turnamen Mobile Legends resmi & profesional. Dukung esports Indonesia.</p>
+          <div class="flex gap-4 mt-4 text-xl">
+            <a href="#"><i class="fab fa-discord hover:text-blue-400"></i></a>
+            <a href="#"><i class="fab fa-instagram hover:text-pink-400"></i></a>
+            <a href="#"><i class="fab fa-whatsapp hover:text-green-400"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold text-lg mb-3">Kontak Panitia</h4>
+          <p class="text-gray-400"><i class="fas fa-envelope mr-2"></i> info@mltourney.id</p>
+          <p class="text-gray-400 mt-2"><i class="fab fa-whatsapp mr-2"></i> +62 812 3456 7890</p>
+          <p class="text-gray-400 mt-2"><i class="fas fa-map-marker-alt mr-2"></i> Online / Jakarta Pusat</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-lg mb-3">Regulasi</h4>
+          <ul class="text-gray-400 text-sm space-y-1">
+            <li>• Maksimal 2替补 (pemain cadangan)</li>
+            <li>• Skin & emblem bebas (non-cheat)</li>
+            <li>• Wajib join grup discord official</li>
+            <li>• Match akan di-streaming</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center text-gray-500 text-xs mt-12 border-t border-gray-800 pt-6">
+        © 2026 MLTourney - All rights reserved. Mobile Legends Bang Bang is a trademark of Moonton.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function() {
+      const form = document.getElementById('tournamentForm');
+      const feedbackDiv = document.getElementById('formFeedback');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // validasi sederhana
+        const team = document.getElementById('teamName').value.trim();
+        const captain = document.getElementById('captain').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        if (!team || !captain || !phone) {
+          feedbackDiv.innerHTML = '<span class="text-red-400"><i class="fas fa-exclamation-triangle"></i> Harap lengkapi Nama Tim, Kapten, dan No WhatsApp.</span>';
+          feedbackDiv.classList.remove('hidden');
+          return;
+        }
+
+        // simulasi simpan data (tidak ada backend nyata, hanya notifikasi sukses)
+        feedbackDiv.innerHTML = '<span class="text-green-400"><i class="fas fa-spinner fa-pulse"></i> Mengirim pendaftaran...</span>';
+        feedbackDiv.classList.remove('hidden');
+
+        // Simulasi delay -> success
+        setTimeout(() => {
+          // Tampilkan pesan berhasil & reset form opsional
+          feedbackDiv.innerHTML = '<span class="text-emerald-400"><i class="fas fa-check-circle"></i> Pendaftaran terkirim! Admin akan menghubungi Anda maks 2x24 jam.</span>';
+          form.reset();
+          // clear success after 5 detik ganti pesan informasi
+          setTimeout(() => {
+            if (feedbackDiv) {
+              feedbackDiv.innerHTML = '<span class="text-gray-400">Terima kasih telah mendaftar, persiapkan tim Anda!</span>';
+            }
+          }, 5000);
+        }, 1200);
+      });
+    })();
+  </script>
+  <!-- Tailwind tidak digunakan, hanya custom style diatas; pastikan tampil responsif -->
+  <style>
+    /* fallback untuk layout tanpa tailwind */
+    .fixed { position: fixed; }
+    .top-0 { top: 0; }
+    .z-50 { z-index: 50; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .md\:px-12 { padding-left: 3rem; padding-right: 3rem; }
+    .max-w-7xl { max-width: 80rem; margin-left: auto; margin-right: auto; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .justify-between { justify-content: space-between; }
+    .items-center { align-items: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-6 { gap: 1.5rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .font-bold { font-weight: 700; }
+    .bg-clip-text { background-clip: text; }
+    .text-transparent { color: transparent; }
+    .text-blue-400 { color: #60a5fa; }
+    .hover\:text-blue-400:hover { color: #60a5fa; }
+    .transition { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    .container, .mx-auto { margin-left: auto; margin-right: auto; }
+    .text-center { text-align: center; }
+    .mt-6 { margin-top: 1.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .bg-blue-500\/10 { background-color: rgba(59,130,246,0.1); }
+    .rounded-full { border-radius: 9999px; }
+    .pt-24 { padding-top: 6rem; }
+    @media (min-width: 768px) { .md\:pt-28 { padding-top: 7rem; } .md\:text-6xl { font-size: 3.75rem; line-height: 1; } .md\:flex-row { flex-direction: row; } .md\:col-span-2 { grid-column: span 2 / span 2; } }
+    .grid { display: grid; }
+    .gap-4 { gap: 1rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .w-full { width: 100%; }
+    .hidden { display: none; }
+  </style>
+</body>
+</html>
